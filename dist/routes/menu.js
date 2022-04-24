@@ -10,8 +10,15 @@ const Menu_1 = require("../entity/Menu");
 const router = express_1.default.Router();
 exports.menuRouter = router;
 router.get("/", async (req, res) => {
-    const { limit, page, all } = req.query;
-    const findOptions = {};
+    const query = req.query;
+    const limit = Number(req.query.limit) || 15;
+    const page = Number(req.query.page) || 0;
+    const findOptions = query.all
+        ? {}
+        : {
+            take: limit,
+            skip: limit * (page - 1),
+        };
     const [menus, pages] = await data_source_1.AppDataSource.manager.findAndCount(Menu_1.Menu, findOptions);
     return res.status(200).json({
         success: true,
