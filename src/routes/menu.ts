@@ -4,6 +4,15 @@ import { AppDataSource } from "../data-source";
 import { Menu } from "../entity/Menu";
 const router = express.Router();
 
+/**
+ * @param {boolean} all: Return all Menu if true
+ * @param {number} limit: Number of menu gonna be taken
+ * @param {number} page: Page, use with paganition
+ *
+ * @respone :
+ *  - menus: Menu[]
+ *  - totalPage: available pages count
+ */
 router.get("/", async (req, res) => {
   const query = req.query;
 
